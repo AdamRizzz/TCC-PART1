@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-white">
+                <h4>Dashboard Mahasiswa</h4>
+            </div>
+            <div class="card-body">
+                {% if skripsi %}
+                    <div class="alert 
+                        {% if skripsi.status == 'pending' %}alert-warning
+                        {% elif skripsi.status == 'approved' %}alert-success
+                        {% else %}alert-danger{% endif %}">
+                        Status Pengajuan: <strong>{{ skripsi.get_status_display }}</strong>
+                    </div>
+                    <h5>Judul: {{ skripsi.judul }}</h5>
+                    <p>Pembimbing: {{ skripsi.lecturer.first_name }} {{ skripsi.lecturer.last_name }} ({{ skripsi.lecturer.username }})</p>
+                    <p>Deskripsi: {{ skripsi.deskripsi }}</p>
+                    <hr>
+                        <div class="d-grid">
+                            <a href="{% url 'chat_room' skripsi.id %}" class="btn btn-info text-white">
+                                💬 Buka Ruang Diskusi dengan Dosen
+                            </a>
+                        </div>
+                {% else %}
+                    <h5 class="mb-3">Ajukan Judul Skripsi</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary w-100">Kirim Pengajuan</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
