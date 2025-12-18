@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app'] 
 
 # Application definition
 
@@ -133,5 +134,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'core.User'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'   
-
-CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app'] 
